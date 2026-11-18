@@ -36,13 +36,14 @@ class TaskManager:
         return None
 
     def delete_task(self, task_id):
+        if not isinstance(task_id, int) or task_id < 1:
+            raise ValueError("Task ID must be a positive whole number.")
         for task in self.tasks:
             if task["id"] == task_id:
                 self.tasks.remove(task)
                 self.save()
                 return task
-        return None
-
+        raise ValueError(f"No task found with ID {task_id}.")
     def save(self):
         if self.data_file is None:
             return
