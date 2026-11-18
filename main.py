@@ -38,13 +38,16 @@ def complete_task_ui(manager):
 
 
 def delete_task_ui(manager):
-    task_id = int(input("Task ID to delete: "))
-    task = manager.delete_task(task_id)
-    if task:
-        print(f"Deleted task {task_id}.")
-    else:
-        print("Task not found.")
-
+    raw = input("Task ID to delete: ").strip()
+    if not raw.isdigit():
+        print("Error: please enter a task ID number, e.g. 2.")
+        return
+    try:
+        task = manager.delete_task(int(raw))
+    except ValueError as error:
+        print(f"Error: {error}")
+        return
+    print(f"Deleted task {task['id']}: {task['title']}")
 
 def main():
     manager = TaskManager("tasks.json")
