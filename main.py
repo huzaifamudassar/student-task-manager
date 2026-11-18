@@ -14,7 +14,11 @@ MENU = """
 
 def add_task_ui(manager):
     title = input("Task title: ")
-    task = manager.add_task(title)
+    try:
+        task = manager.add_task(title)
+    except ValueError as error:
+        print(f"Error: {error}")
+        return
     print(f"Added task {task['id']}: {task['title']}")
 
 
