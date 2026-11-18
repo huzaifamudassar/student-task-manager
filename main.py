@@ -29,12 +29,18 @@ def view_tasks_ui(manager):
 
 
 def complete_task_ui(manager):
-    task_id = int(input("Task ID to complete: "))
-    task = manager.complete_task(task_id)
-    if task:
-        print(f"Task {task_id} marked as completed.")
-    else:
-        print("Task not found.")
+    view_tasks_ui(manager)
+    raw = input("Task ID(s) to complete, e.g. 2 or 1,3: ")
+    for part in raw.split(","):
+        part = part.strip()
+        if not part.isdigit():
+            print(f"Error: '{part}' is not a valid task ID.")
+            continue
+        try:
+            task = manager.complete_task(int(part))
+            print(f"Task {task['id']} marked as completed.")
+        except ValueError as error:
+            print(f"Error: {error}")
 
 
 def delete_task_ui(manager):
