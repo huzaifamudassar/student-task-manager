@@ -47,7 +47,7 @@ def delete_task_ui(manager):
 
 
 def main():
-    manager = TaskManager()
+    manager = TaskManager("tasks.json")
     while True:
         print(MENU)
         choice = input("Choose an option: ").strip()
